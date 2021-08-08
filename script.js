@@ -170,6 +170,9 @@ let progressBar2Score = document.getElementById("progress-bar-2-score");
 // Animated bar
 let AnimatedSVGCirle1 = document.getElementById("AnimatedSVGCircle1");
 let progressBar3Score = document.getElementById("progressBar3Score");
+//dark animated box shadow
+let AnimatedSVGCircle2Dark = document.getElementById("AnimatedSVGCircle2Dark");
+let progressBar4Score = document.getElementById("progressBar4Score");
 
 searchIcon.addEventListener("click", () => {
   search.classList.add("search-open");
@@ -202,6 +205,8 @@ searchInput.addEventListener("keyup", function (event) {
     progressBar2Score.innerHTML = searchInput.value;
     //update the text of the number in the animated progress bar
     progressBar3Score.innerHTML = searchInput.value;
+    //dark animated boxshadow
+    progressBar4Score.innerHTML = searchInput.value;
 
     // updating the paramters for the progress bar
     settingsCircularProgressBar.map(async (item) => {
@@ -235,10 +240,14 @@ searchInput.addEventListener("keyup", function (event) {
 
         //now that i have added the % of complete i want to restart the animation
         AnimatedSVGCirle1.classList.remove("animatedBarSvgCircle");
+        //remove from dark box shadow
+        AnimatedSVGCircle2Dark.classList.remove("animatedBarSvgCircle");
 
         // wait another 1 sec
         await asyncDelay(10);
         AnimatedSVGCirle1.classList.add("animatedBarSvgCircle");
+        //append on dark box shadow
+        AnimatedSVGCircle2Dark.classList.add("animatedBarSvgCircle");
       }
     });
   }

@@ -209,7 +209,7 @@ body {
   width: var(--heightWidthAnimatedBar);
   border-radius: 50%;
   position: relative;
-  box-shadow: -3px -3px 7px #ffffffb2, 3px 3px 5px rgba(94, 104, 121, 0.945);
+  /* box-shadow: -3px -3px 7px #ffffffb2, 3px 3px 5px rgba(94, 104, 121, 0.945); */
   overflow: hidden;
 }
 .animatedBar:after {
@@ -221,14 +221,18 @@ body {
   height: 80%;
   width: 80%;
   border-radius: 50%;
-  box-shadow: inset -3px -3px 7px #ffffffb0,
-    inset 3px 3px 5px rgba(94, 104, 121, 0.692);
+  /* box-shadow: inset -3px -3px 7px #ffffffb0,
+    inset 3px 3px 5px rgba(94, 104, 121, 0.692); */
+  background-color: transparent;
+  background-color: #0c2340;
 }
 .svgProgressBar {
   width: 100%;
   height: 100%;
   position: relative;
   transform: rotate(-90deg);
+  background-color: transparent;
+  background-color: rgba(89, 86, 86, 0.5);
 }
 
 .svgCircle {
@@ -253,6 +257,7 @@ body {
   text-align: center;
   font-size: 3rem;
   color: var(--CompletedProgressBar);
+  z-index: 1;
 }
 
 @keyframes bar_1 {
@@ -265,4 +270,58 @@ body {
         (var(--strokeDashoffset) * var(--PercentageCompletedAnimatedBar)) / 100
     );
   }
+}
+
+/* Neumorphisic bar */
+
+.progressBar_4 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 2/ -1;
+  grid-row: 2 /-1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.animatedBarDark {
+  /* display: inline-block; */
+  height: var(--heightWidthAnimatedBar);
+  width: var(--heightWidthAnimatedBar);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: inset -5px -5px 6px rgba(0, 0, 0, 0.4),
+    inset 2px 2px 1px rgba(0, 0, 0, 0.4);
+
+  overflow: hidden;
+}
+.animatedBarDark:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+  box-shadow: inset -2px -2px 0px rgba(0, 0, 0, 0.4),
+    inset 3px 3px 5px rgba(0, 0, 0, 0.4), inset -3px -3px 5px rgba(0, 0, 0, 0.4);
+}
+
+.animatedBarDark:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+}
+.svgProgressBarDark {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: rotate(-90deg);
 }
