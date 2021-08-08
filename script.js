@@ -167,6 +167,9 @@ let searchDelete = document.querySelector(".search__delete");
 //number in the progress bar that shows the score
 let progressBar1Score = document.getElementById("progress-bar-1-score");
 let progressBar2Score = document.getElementById("progress-bar-2-score");
+// Animated bar
+let AnimatedSVGCirle1 = document.getElementById("AnimatedSVGCircle1");
+let progressBar3Score = document.getElementById("progressBar3Score");
 
 searchIcon.addEventListener("click", () => {
   search.classList.add("search-open");
@@ -197,9 +200,11 @@ searchInput.addEventListener("keyup", function (event) {
     //updating the text of the number
     progressBar1Score.innerHTML = searchInput.value;
     progressBar2Score.innerHTML = searchInput.value;
+    //update the text of the number in the animated progress bar
+    progressBar3Score.innerHTML = searchInput.value;
 
     // updating the paramters for the progress bar
-    settingsCircularProgressBar.map((item) => {
+    settingsCircularProgressBar.map(async (item) => {
       if (item.position == searchInput.value * 10) {
         console.log(item);
         // updating the css variables
@@ -219,7 +224,25 @@ searchInput.addEventListener("keyup", function (event) {
           "--CompletedProgressBar",
           `${item.CompletedProgressBar}`
         );
+
+        //Animated Progress bar
+
+        // update the % of complete for the animated bar
+        document.documentElement.style.setProperty(
+          "--PercentageCompletedAnimatedBar",
+          `${searchInput.value * 10}`
+        );
+
+        //now that i have added the % of complete i want to restart the animation
+        AnimatedSVGCirle1.classList.remove("animatedBarSvgCircle");
+
+        // wait another 1 sec
+        await asyncDelay(10);
+        AnimatedSVGCirle1.classList.add("animatedBarSvgCircle");
       }
     });
   }
 });
+
+// helper function to create async set timeout function
+const asyncDelay = (ms) => new Promise((res) => setTimeout(res, ms));

@@ -13,6 +13,12 @@
   --remainingProgressBar: #ddd;
   --CompletedProgressBar: #63b8ff;
   --colorFirstGradient: #ddd;
+  /*  variables to change size of the animated bar */
+  --strokeDashoffset: 472px;
+  /* must be 472 */
+  --PercentageCompletedAnimatedBar: 0;
+  --heightWidthAnimatedBar: 150px;
+  /* Default values for  strokeDashoffset and heightWidthAnimatedBar is  630 adn 200, if i want to decrease the size of the circle by 25% then the height will be 200*0.75=150 and the strokeDashoffset will be 630*0.75=472*/
 }
 
 body {
@@ -30,7 +36,7 @@ body {
   background-color: transparent;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: 1fr;
+  grid-template-rows: repeat(2, 1fr);
   border-radius: 5px;
   border-style: dashed;
   border-width: 2px;
@@ -103,6 +109,7 @@ body {
   height: 100%;
   background-color: transparent;
   grid-column: 1 / 2;
+  grid-row: 1 / 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,6 +120,7 @@ body {
   height: 100%;
   background-color: transparent;
   grid-column: 2/ -1;
+  grid-row: 1 / 2;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -181,3 +189,80 @@ body {
 }
 
 /* xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx */
+
+/* Animated progress bar  */
+
+.progressBar_3 {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  grid-column: 1/ 2;
+  grid-row: 2 /-1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.animatedBar {
+  /* display: inline-block; */
+  height: var(--heightWidthAnimatedBar);
+  width: var(--heightWidthAnimatedBar);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: -3px -3px 7px #ffffffb2, 3px 3px 5px rgba(94, 104, 121, 0.945);
+  overflow: hidden;
+}
+.animatedBar:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 80%;
+  width: 80%;
+  border-radius: 50%;
+  box-shadow: inset -3px -3px 7px #ffffffb0,
+    inset 3px 3px 5px rgba(94, 104, 121, 0.692);
+}
+.svgProgressBar {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: rotate(-90deg);
+}
+
+.svgCircle {
+  position: absolute;
+  transform: scale(0.939);
+  transform-origin: center;
+  fill: none;
+  stroke: var(--CompletedProgressBar);
+  stroke-width: 30px;
+  stroke-dasharray: var(--strokeDashoffset);
+}
+.animatedBarSvgCircle {
+  animation: bar_1 1s ease forwards;
+}
+
+.progress__number_animated {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  line-height: 1;
+  margin-top: -1.5rem;
+  text-align: center;
+  font-size: 3rem;
+  color: var(--CompletedProgressBar);
+}
+
+@keyframes bar_1 {
+  0% {
+    stroke-dashoffset: var(--strokeDashoffset);
+  }
+  100% {
+    stroke-dashoffset: calc(
+      var(--strokeDashoffset) -
+        (var(--strokeDashoffset) * var(--PercentageCompletedAnimatedBar)) / 100
+    );
+  }
+}
